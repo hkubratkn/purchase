@@ -30,8 +30,11 @@ import com.google.android.gms.ads.AdView
 import com.kapirti.eagle.R
 import com.kapirti.eagle.data.MyService
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.ui.res.dimensionResource
+import com.kapirti.eagle.domain.Constants.ADS_TEST_BANNER
 
 @Composable
 fun HomeScreen() {
@@ -40,7 +43,7 @@ fun HomeScreen() {
 }
 
 @Composable
-fun BodyContent() {
+private fun BodyContent() {
     val context = LocalContext.current
     var navigateClick by remember { mutableStateOf(false) }
     val offSetAnim by animateDpAsState(targetValue = if (navigateClick) 253.dp else 0.dp)
@@ -58,14 +61,14 @@ fun BodyContent() {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp)
+                .padding(dimensionResource(id = R.dimen.padding_10))
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_baseline_menu_24),
                 contentDescription = stringResource(id = R.string.menu),
                 modifier = Modifier
                     .clickable { navigateClick = !navigateClick }
-                    .padding(15.dp)
+                    .padding(dimensionResource(id = R.dimen.padding_15))
             )
         }
 
@@ -78,7 +81,9 @@ fun BodyContent() {
                 text = MyService.timeForCounter.value,
                 color = MaterialTheme.colors.primary,
                 fontSize = 50.sp,
-                modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = dimensionResource(id = R.dimen.padding_10)),
                 textAlign = TextAlign.Center
             )
 
@@ -87,7 +92,9 @@ fun BodyContent() {
                 fontFamily = FontFamily.SansSerif,
                 color = MaterialTheme.colors.error,
                 fontSize = 20.sp,
-                modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = dimensionResource(id = R.dimen.padding_10)),
                 textAlign = TextAlign.Center
             )
 
@@ -102,25 +109,31 @@ fun BodyContent() {
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 5.dp)
+                    .padding(vertical = dimensionResource(id = R.dimen.padding_5))
             )
 
             Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 20.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = dimensionResource(id = R.dimen.padding_20))
             ) {
 
                 Button(
-                    modifier = Modifier.fillMaxWidth(0.5f).padding(5.dp),
+                    modifier = Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(dimensionResource(id = R.dimen.padding_5)),
                     enabled = MyService.btnStateStop.value,
                     onClick = {
                         MyService.stopService(context)
                     }
                 ) { Text(text = stringResource(id = R.string.stop)) }
                 Button(
-                    modifier = Modifier.fillMaxWidth().padding(5.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(dimensionResource(id = R.dimen.padding_5)),
                     enabled = MyService.btnStateStart.value,
                     onClick = {
-                        MyService.startService(context, "service start")
+                        MyService.startService(context, context.getString(R.string.service_start))
                     }
                 ) { Text(text = stringResource(id = R.string.start)) }
 
@@ -133,8 +146,7 @@ fun BodyContent() {
 }
 
 @Composable
-fun NavigationDrawer() {
-    val activity = (LocalContext.current as? Activity)
+private fun NavigationDrawer() {
     val context = LocalContext.current
     val shareIntent =
         remember { Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.share_code))) }
@@ -147,45 +159,29 @@ fun NavigationDrawer() {
             resId = R.drawable.ic_baseline_star_rate_24,
             text = stringResource(id = R.string.rate),
             itemClicked = { context.startActivity(shareIntent) },
-            topPadding = 145.dp
+            topPadding = dimensionResource(id =  R.dimen.padding_145)
         )
         NavigationItem(
             resId = R.drawable.ic_baseline_share_24,
             text = stringResource(id = R.string.share),
             itemClicked = {
-                val intent = Intent()
-                intent.action = Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_code))
-                intent.type = "text/plain"
-                context.startActivity(
-                    Intent.createChooser(
-                        intent,
-                        context.getString(R.string.app_name)
-                    )
-                )
+               shareBody(context = context)
             }
         )
 
-
         Row(
             modifier = Modifier
-                .padding(start = 50.dp, bottom = 87.dp)
+                .padding(
+                    start = dimensionResource(id = R.dimen.padding_50),
+                    bottom = dimensionResource(id = R.dimen.padding_87)
+                )
                 .fillMaxHeight(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_12)),
             verticalAlignment = Alignment.Bottom
         ) {
             TextButton(
                 onClick = {
-                    val intent = Intent()
-                    intent.action = Intent.ACTION_SEND
-                    intent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_code))
-                    intent.type = "text/plain"
-                    activity!!.startActivity(
-                        Intent.createChooser(
-                            intent,
-                            context.getString(R.string.app_name)
-                        )
-                    )
+                    shareBody(context = context)
                 }
             ) {
                 Text(
@@ -199,26 +195,26 @@ fun NavigationDrawer() {
 }
 
 @Composable
-fun NavigationItem(
+private fun NavigationItem(
     resId : Int,
     text : String,
-    topPadding : Dp = 20.dp,
+    topPadding : Dp = dimensionResource(id = R.dimen.padding_20),
     destination : String = "",
     itemClicked : (String) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 38.dp, top = topPadding)
+            .padding(start = dimensionResource(id = R.dimen.padding_38), top = topPadding)
             .clickable { itemClicked(destination) }
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_12))
         ) {
             Image(
                 painter = painterResource(id = resId),
                 contentDescription = null,
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(dimensionResource(id = R.dimen.padding_30))
             )
             Text(
                 text = text,
@@ -229,10 +225,22 @@ fun NavigationItem(
 
         Box(
             modifier = Modifier
-                .padding(start = 35.dp, top = 26.dp, bottom = 16.dp)
+                .padding(
+                    start = dimensionResource(id = R.dimen.padding_35),
+                    top = dimensionResource(id = R.dimen.padding_26),
+                    bottom = dimensionResource(id = R.dimen.padding_16)
+                )
                 .size(120.dp, 0.5.dp)
                 .background(Color.Gray)
         )
     }
 
+}
+
+private fun shareBody(context: Context) {
+    val intent = Intent()
+    intent.action = Intent.ACTION_SEND
+    intent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_code))
+    intent.type = "text/plain"
+    context.startActivity(Intent.createChooser(intent, context.getString(R.string.app_name)))
 }

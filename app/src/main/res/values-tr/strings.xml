@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Eagle</string>
+    <string name="allow_permission">İzinlere onay verin</string>
+    <string name="menu">Menü</string>
+    <string name="rate">Değerlendirmek</string>
+    <string name="service_start">servis başlat</string>
+    <string name="share">Paylaş</string>
+    <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="start">Başla</string>
+    <string name="stop">Bittir</string>
+    <string name="three_times_twenty">Her 20 dakikada bir 20 feets uzaklığa 20 saniye bakın!</string>
+</resources>

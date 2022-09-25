@@ -2,12 +2,17 @@
 <resources>
     <string name="app_name">Eagle</string>
     <string name="allow_permission">İzinlere onay verin</string>
+    <string name="finish">Bitti</string>
     <string name="menu">Menü</string>
     <string name="rate">Değerlendirmek</string>
+    <string name="rate_text">Eagle uygulamasını değerlendirebilirsiniz</string>
     <string name="service_start">servis başlat</string>
     <string name="share">Paylaş</string>
     <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">Arkadaşlarınıza Eagle uygulamasını paylaşabilirsiniz</string>
     <string name="start">Başla</string>
     <string name="stop">Bittir</string>
     <string name="three_times_twenty">Her 20 dakikada bir 20 feets uzaklığa 20 saniye bakın!</string>
+    <string name="welcome">Hoş Geldiniz</string>
+    <string name="welcome_text">Eagle uygulamasına Hoş Geldiniz</string>
 </resources>

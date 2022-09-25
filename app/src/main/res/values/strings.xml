@@ -1,12 +1,17 @@
 <resources>
     <string name="app_name">Eagle</string>
     <string name="allow_permission">Allow Permission</string>
+    <string name="finish">Finish</string>
     <string name="menu">Menu</string>
     <string name="rate">Rate</string>
+    <string name="rate_text">Rate Eagle App</string>
     <string name="service_start">service start</string>
     <string name="share">Share</string>
     <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">Share Eagle app with your friends</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="three_times_twenty">Each 20 minutes look up to 20 feets in 20 seconds!</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_text">Welcome to Eagle App</string>
 </resources>

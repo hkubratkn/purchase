@@ -10,9 +10,11 @@ import android.media.MediaPlayer
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.kapirti.eagle.MainActivity
 import com.kapirti.eagle.R
 
@@ -35,6 +37,8 @@ class MyService: Service() {
         }
 
     }
+
+    @OptIn(ExperimentalPagerApi::class, ExperimentalAnimationApi::class)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val input = intent?.getStringExtra("inputExtra")
         createNotificationChannel()

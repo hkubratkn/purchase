@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--turkce-->
     <string name="app_name">Eagle</string>
     <string name="allow_permission">İzinlere onay verin</string>
     <string name="finish">Bitti</string>
     <string name="menu">Menü</string>
-    <string name="rate">Değerlendirmek</string>
+    <string name="rate">Değerlendir</string>
     <string name="rate_text">Eagle uygulamasını değerlendirebilirsiniz</string>
     <string name="service_start">servis başlat</string>
     <string name="share">Paylaş</string>

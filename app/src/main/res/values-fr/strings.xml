@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--french-->
+    <string name="app_name">Eagle</string>
+    <string name="allow_permission">Autoriser l\'autorisation</string>
+    <string name="finish">Finir</string>
+    <string name="menu">Menu</string>
+    <string name="rate">Évaluer</string>
+    <string name="rate_text">Évaluer l\'application Eagle</string>
+    <string name="service_start">démarrage du service</string>
+    <string name="share">Partager</string>
+    <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">Partagez l\'application Eagle avec vos amis</string>
+    <string name="start">Commencer</string>
+    <string name="stop">Arrêt</string>
+    <string name="three_times_twenty">Toutes les 20 minutes regardez jusqu\'à 20 pieds en 20 secondes !</string>
+    <string name="welcome">Bienvenu</string>
+    <string name="welcome_text">Bienvenue sur l\'application Eagle</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--kurtce-->
+    <string name="app_name">Eagle</string>
+    <string name="allow_permission">Destûrê bide Destûra</string>
+    <string name="finish">Qedandin</string>
+    <string name="menu">Qerta xûrekê</string>
+    <string name="rate">Qûrs</string>
+    <string name="rate_text">Rêjeya Eagle App</string>
+    <string name="service_start">destpêkirina xizmetê</string>
+    <string name="share">Par</string>
+    <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">Serlêdana Eagle bi hevalên xwe re parve bikin</string>
+    <string name="start">Destpêkirin</string>
+    <string name="stop">Rawestan</string>
+    <string name="three_times_twenty">Her 20 hûrdem di 20 çirkeyan de 20 lingan dinihêre!</string>
+    <string name="welcome">Bi xêr hatî</string>
+    <string name="welcome_text">Hûn bi xêr hatin Eagle App</string>
+</resources>

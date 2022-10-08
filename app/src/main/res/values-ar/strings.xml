@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--arabic-->
+    <string name="app_name">Eagle</string>
+    <string name="allow_permission">السماح إذن</string>
+    <string name="finish">إنهاء</string>
+    <string name="menu">قائمة الطعام</string>
+    <string name="rate">معدل</string>
+    <string name="rate_text">قيم تطبيق النسر</string>
+    <string name="service_start">بدء الخدمة</string>
+    <string name="share">يشارك</string>
+    <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">شارك تطبيق Eagle مع أصدقائك</string>
+    <string name="start">بداية</string>
+    <string name="stop">قف</string>
+    <string name="three_times_twenty">كل 20 دقيقة ابحث عن ما يصل إلى 20 قدمًا في 20 ثانية!</string>
+    <string name="welcome">أهلا وسهلا</string>
+    <string name="welcome_text">مرحبًا بك في تطبيق Eagle</string>
+</resources>

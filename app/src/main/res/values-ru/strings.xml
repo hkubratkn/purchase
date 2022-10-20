@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--russian-->
+    <string name="app_name">Eagle</string>
+    <string name="allow_permission">Разрешить разрешение</string>
+    <string name="finish">Заканчивать</string>
+    <string name="menu">Меню</string>
+    <string name="rate">Оценивать</string>
+    <string name="rate_text">Оцените приложение Eagle</string>
+    <string name="service_start">запуск службы</string>
+    <string name="share">Делиться</string>
+    <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">Поделитесь приложением Eagle с друзьями</string>
+    <string name="start">Начинать</string>
+    <string name="stop">Останавливаться</string>
+    <string name="three_times_twenty">Каждые 20 минут смотрите на 20 футов за 20 секунд!</string>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="welcome_text">Добро пожаловать в приложение Орел</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--hebrew-->
+    <string name="app_name">Eagle</string>
+    <string name="allow_permission">אפשר הרשאה</string>
+    <string name="finish">סיים</string>
+    <string name="menu">תַפרִיט</string>
+    <string name="rate">ציון</string>
+    <string name="rate_text">דרג את אפליקציית Eagle</string>
+    <string name="service_start">תחילת השירות</string>
+    <string name="share">לַחֲלוֹק</string>
+    <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">שתף את אפליקציית הנשר עם החברים שלך</string>
+    <string name="start">הַתחָלָה</string>
+    <string name="stop">תפסיק</string>
+    <string name="three_times_twenty">כל 20 דקות מסתכלים עד 20 רגל תוך 20 שניות!</string>
+    <string name="welcome">ברוך הבא</string>
+    <string name="welcome_text">ברוכים הבאים לאפליקציית Eagle</string>
+</resources>

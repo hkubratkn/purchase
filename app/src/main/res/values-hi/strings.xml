@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--hintce-->
+    <string name="app_name">Eagle</string>
+    <string name="allow_permission">अनुमति दें</string>
+    <string name="finish">खत्म करना</string>
+    <string name="menu">मेन्यू</string>
+    <string name="rate">भाव</string>
+    <string name="rate_text">ईगल ऐप को रेट करें</string>
+    <string name="service_start">सेवा शुरू</string>
+    <string name="share">शेयर करना</string>
+    <string name="share_code">https://play.google.com/store/apps/details?id=com.kapirti.eagle</string>
+    <string name="share_text">अपने दोस्तों के साथ ईगल ऐप साझा करें</string>
+    <string name="start">शुरू</string>
+    <string name="stop">विराम</string>
+    <string name="three_times_twenty">प्रत्येक 20 मिनट 20 सेकंड में 20 फ़ीट तक का दिखता है!</string>
+    <string name="welcome">स्वागत</string>
+    <string name="welcome_text">ईगल ऐप में आपका स्वागत है</string>
+</resources>

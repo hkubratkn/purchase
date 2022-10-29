@@ -1,7 +1,7 @@
 package com.kapirti.eagle.data.injection
 
 import android.content.Context
-import com.kapirti.eagle.data.repository.HomeScreenRepository
+import com.kapirti.eagle.data.repository.SettingRepository
 import com.kapirti.eagle.data.repository.local.OnBoardingDataStoreRepository
 import dagger.Module
 import dagger.Provides
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MainModule {
+object AppModule {
 
     @Provides
     @Singleton
@@ -22,8 +22,8 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideHomeScreenRepository(
+    fun provideSettingRepository(
         @ApplicationContext context: Context
-    ) = HomeScreenRepository(context = context)
+    ) = SettingRepository(context = context)
 
 }

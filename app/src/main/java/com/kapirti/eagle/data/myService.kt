@@ -47,7 +47,7 @@ class MyService: Service() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("title")
             .setContentText(input)
-            .setSmallIcon(R.drawable.ic_baseline_panorama_fish_eye_24)
+            .setSmallIcon(R.drawable.eaglepp)
             .setContentIntent(pendingIntent)
             .build()
 

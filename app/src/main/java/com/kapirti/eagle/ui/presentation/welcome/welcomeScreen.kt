@@ -139,19 +139,19 @@ sealed class OnBoardingPage(
     val description: Int
 ) {
     object First : OnBoardingPage(
-        image = R.drawable.ic_launcher_foreground,
+        image = R.drawable.eaglepp,
         title = R.string.welcome,
         description = R.string.welcome_text
     )
 
     object Second : OnBoardingPage(
-        image = R.drawable.ic_launcher_background,
+        image = R.drawable.eaglepp,
         title = R.string.share,
         description = R.string.share_text
     )
 
     object Third : OnBoardingPage(
-        image = R.drawable.ic_launcher_foreground,
+        image = R.drawable.eaglepp,
         title = R.string.rate,
         description = R.string.rate_text
     )

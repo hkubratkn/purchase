@@ -5,13 +5,13 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kapirti.eagle.data.repository.local.OnBoardingDataStoreRepository
+import com.kapirti.eagle.data.repository.local.OnBoardingRepository
 import com.kapirti.eagle.ui.navigation.Screen
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SplashViewModel @Inject constructor(
-    private val repository: OnBoardingDataStoreRepository
+    private val repository: OnBoardingRepository
 ) : ViewModel() {
 
     private val _isLoading: MutableState<Boolean> = mutableStateOf(true)

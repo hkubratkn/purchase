@@ -13,8 +13,8 @@ android {
         applicationId "com.kapirti.eagle"
         minSdk 21
         targetSdk 33
-        versionCode 15
-        versionName "1.0.1"
+        versionCode 16
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -67,7 +67,7 @@ dependencies {
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
-    implementation 'com.google.android.gms:play-services-ads:21.1.0'
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
     implementation("com.google.android.play:review:2.0.0")
 
     testImplementation 'junit:junit:4.13.2'

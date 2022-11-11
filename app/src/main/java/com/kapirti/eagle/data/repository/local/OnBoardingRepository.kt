@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-class OnBoardingDataStoreRepository(
+class OnBoardingRepository(
     private val context: Context
 ) {
 

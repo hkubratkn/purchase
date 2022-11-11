@@ -2,7 +2,7 @@ package com.kapirti.eagle.data.injection
 
 import android.content.Context
 import com.kapirti.eagle.data.repository.SettingRepository
-import com.kapirti.eagle.data.repository.local.OnBoardingDataStoreRepository
+import com.kapirti.eagle.data.repository.local.OnBoardingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,9 +16,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOnBoardingDataStoreRepository(
+    fun provideOnBoardingRepository(
         @ApplicationContext context: Context
-    ) = OnBoardingDataStoreRepository(context = context)
+    ) = OnBoardingRepository(context = context)
 
     @Provides
     @Singleton

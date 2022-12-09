@@ -50,6 +50,7 @@ class MainActivity : ComponentActivity() {
 
                 showBottomBar = when(navBackStackEntry?.destination?.route){
                     Screen.WelcomeS.route -> false
+
                     else -> true
                 }
 

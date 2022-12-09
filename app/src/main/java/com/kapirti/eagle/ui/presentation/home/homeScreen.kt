@@ -2,6 +2,7 @@ package com.kapirti.eagle.ui.presentation.home
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
@@ -9,11 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import com.kapirti.eagle.R
-import com.kapirti.eagle.data.MyService
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.kapirti.eagle.ui.navigation.Screen
@@ -57,7 +56,8 @@ private fun TopAppBarBody(
                     navController.navigate(Screen.SettingS.route)
                 }
             )
-        }
+        },
+        backgroundColor = MaterialTheme.colors.background
     )
 
 }
@@ -72,6 +72,22 @@ private fun BodyContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        TextButton(
+            modifier = Modifier
+                .width(dimensionResource(id = R.dimen.padding_200))
+                .height(dimensionResource(id = R.dimen.padding_200))
+                .background(MaterialTheme.colors.primaryVariant),
+            onClick = {},
+            shape = RoundedCornerShape(dimensionResource(id = R.dimen.padding_100))
+        ){
+            Text(
+                text = viewModel.btnText.value,
+                color = MaterialTheme.colors.primary,
+                fontStyle = FontStyle.Italic
+            )
+        }
+
         /**        Text(
         text = MyService.timeForCounter.value,
         color = MaterialTheme.colors.primary,

@@ -1,86 +1,245 @@
 package com.kapirti.eagle
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
+import androidx.activity.viewModels
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
+import com.kapirti.eagle.Constants.MONTHLY_BASIC_PLANS_TAG
+import com.kapirti.eagle.Constants.MONTHLY_PREMIUM_PLANS_TAG
+import com.kapirti.eagle.Constants.PREPAID_BASIC_PLANS_TAG
+import com.kapirti.eagle.Constants.PREPAID_PREMIUM_PLANS_TAG
+import com.kapirti.eagle.Constants.YEARLY_BASIC_PLANS_TAG
+import com.kapirti.eagle.Constants.YEARLY_PREMIUM_PLANS_TAG
+import com.kapirti.eagle.ui.ButtonModel
+import com.kapirti.eagle.ui.MainState
+import com.kapirti.eagle.ui.MainViewModel
+import com.kapirti.eagle.ui.composable.LoadingScreen
+import com.kapirti.eagle.ui.composable.SubscriptionNavigationComponent
+import com.kapirti.eagle.ui.composable.UserProfile
 import com.kapirti.eagle.ui.theme.EagleTheme
-import com.google.android.play.core.review.ReviewManagerFactory
-import com.kapirti.eagle.ui.navigation.BottomBar
-import com.kapirti.eagle.ui.navigation.NavGraph
-import com.kapirti.eagle.ui.navigation.Screen
-import com.kapirti.eagle.ui.presentation.splash.SplashViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-@ExperimentalAnimationApi
-@ExperimentalPagerApi
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    @Inject
-    lateinit var splashViewModel: SplashViewModel
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        installSplashScreen().setKeepOnScreenCondition {
-            !splashViewModel.isLoading.value
-        }
-
         setContent {
             EagleTheme {
-                val screen by splashViewModel.startDestination
-                val navController = rememberNavController()
-                var showBottomBar by rememberSaveable{ mutableStateOf(true) }
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-                showBottomBar = when(navBackStackEntry?.destination?.route){
-                    Screen.WelcomeS.route -> false
-
-                    else -> true
-                }
-
-                Scaffold(
-                    modifier = Modifier,
-                    bottomBar = {if (showBottomBar) BottomBar()}
-                ){ innerPadding ->
-                    NavGraph(
-                        navController = navController,
-                        startDestination = screen,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-
+                MainNavHost(viewModel = viewModel, activity = this)
             }
-            inAppReviewBody(this)
         }
     }
 }
 
-private fun inAppReviewBody(context: Context) {
-    val manager = ReviewManagerFactory.create(context)
-    val request = manager.requestReviewFlow()
+@Composable
+private fun MainNavHost(viewModel: MainViewModel, activity: MainActivity) {
+    // State variable passed into Billing connection call and set to true when
+    // connections is establis
+    val isBillingConnected by viewModel.billingConnectionState.observeAsState()
 
-    request.addOnCompleteListener { request ->
-        if (request.isSuccessful) {
-            val reviewInfo = request.result
-            val flow = manager.launchReviewFlow(context as Activity, reviewInfo!!)
-            flow.addOnCompleteListener { _ ->
+    if (isBillingConnected == false) {
+        // When false connection to the billing library is not established yet,
+        // so a loading screen is rendered.
+        LoadingScreen()
+    } else {
+        // When true connection to the billing library is established,
+        // so the subscription composables are rendered.
+        val navController = rememberNavController()
+
+        // Collect available products to sale Flows from MainViewModel.
+        val productsForSale by viewModel.productsForSaleFlows.collectAsState(
+            initial = MainState()
+        )
+
+        // Collect current purchases Flows from MainViewModel.
+        val currentPurchases by viewModel.currentPurchasesFlow.collectAsState(
+            initial = listOf()
+        )
+
+        // Observe the ViewModel's destinationScreen object for changes in subscription status.
+        val screen by viewModel.destinationScreen.observeAsState()
+
+        // Load UI based on user's current subscription.
+        when (screen) {
+            // User has a Basic Prepaid subscription
+            // the corresponding profile is loaded.
+            MainViewModel.DestinationScreen.BASIC_PREPAID_PROFILE_SCREEN -> {
+                UserProfile(
+                    buttonModels =
+                    listOf(
+                        ButtonModel(R.string.topup_message) {
+                            productsForSale.basicProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = null,
+                                    tag = PREPAID_BASIC_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.convert_to_basic_monthly_message) {
+                            productsForSale.basicProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = MONTHLY_BASIC_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.convert_to_basic_yearly_message) {
+                            productsForSale.basicProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = YEARLY_BASIC_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                    ),
+                    tag = PREPAID_BASIC_PLANS_TAG,
+                    profileTextStringResource = null
+                )
             }
+            // User has a renewable basic subscription
+            // the corresponding profile is loaded.
+            MainViewModel.DestinationScreen.BASIC_RENEWABLE_PROFILE -> {
+                UserProfile(
+                    buttonModels =
+                    listOf(
+                        ButtonModel(R.string.monthly_premium_upgrade_message) {
+                            productsForSale.premiumProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = MONTHLY_PREMIUM_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.yearly_premium_upgrade_message) {
+                            productsForSale.premiumProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = YEARLY_PREMIUM_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.prepaid_premium_upgrade_message) {
+                            productsForSale.premiumProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = PREPAID_PREMIUM_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        }
+                    ),
+                    tag = null,
+                    profileTextStringResource = R.string.basic_sub_message
+                )
+            }
+            // User has a prepaid Premium subscription
+            // the corresponding profile is loaded.
+            MainViewModel.DestinationScreen.PREMIUM_PREPAID_PROFILE_SCREEN -> {
+                UserProfile(
+                    buttonModels =
+                    listOf(
+                        ButtonModel(R.string.topup_message) {
+                            productsForSale.premiumProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = null,
+                                    tag = PREPAID_PREMIUM_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.convert_to_premium_monthly_message) {
+                            productsForSale.premiumProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = MONTHLY_PREMIUM_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.convert_to_premium_yearly_message) {
+                            productsForSale.premiumProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = YEARLY_PREMIUM_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                    ),
+                    tag = PREPAID_PREMIUM_PLANS_TAG,
+                    profileTextStringResource = null
+                )
+            }
+            // User has a renewable Premium subscription
+            // the corresponding profile is loaded.
+            MainViewModel.DestinationScreen.PREMIUM_RENEWABLE_PROFILE -> {
+                UserProfile(
+                    listOf(
+                        ButtonModel(R.string.monthly_basic_downgrade_message) {
+                            productsForSale.basicProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = MONTHLY_BASIC_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.yearly_basic_downgrade_message) {
+                            productsForSale.basicProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = YEARLY_BASIC_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        },
+                        ButtonModel(R.string.prepaid_basic_downgrade_message) {
+                            productsForSale.basicProductDetails?.let {
+                                viewModel.buy(
+                                    productDetails = it,
+                                    currentPurchases = currentPurchases,
+                                    tag = PREPAID_BASIC_PLANS_TAG,
+                                    activity = activity
+                                )
+                            }
+                        }
+                    ),
+                    tag = null,
+                    profileTextStringResource = R.string.premium_sub_message
+                )
+            }
+            // User has no current subscription - the subscription composable
+            // is loaded.
+            MainViewModel.DestinationScreen.SUBSCRIPTIONS_OPTIONS_SCREEN -> {
+                SubscriptionNavigationComponent(
+                    productsForSale = productsForSale,
+                    navController = navController,
+                    viewModel = viewModel
+                )
+            }
+            else -> {}
         }
     }
 }

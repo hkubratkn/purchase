@@ -3,6 +3,7 @@ buildscript {
         compose_version = '1.3.1'
         lifecycle_version = '2.3.1'
         hilt_version = '2.43.2'
+        nav_versiobn = "2.4.2"
     }
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
